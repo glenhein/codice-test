@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.stream.Stream;
 import org.mockito.Incubating;
 import org.mockito.exceptions.base.MockitoAssertionError;
-import org.mockito.internal.debugging.LocationImpl;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.internal.verification.api.VerificationData;
 import org.mockito.internal.verification.api.VerificationDataInOrder;
@@ -121,10 +120,6 @@ public class PrivilegedVerificationMode implements VerificationMode, Verificatio
   }
 
   private Field getStackTraceHolderField(MatchableInvocation wanted, Location location) {
-    if (!(location instanceof LocationImpl)) {
-      throw getMockitoImplementationChangedException(wanted);
-    }
-
     try {
       Field stackTraceHolderField = location.getClass().getDeclaredField("stackTraceHolder");
       stackTraceHolderField.setAccessible(true);
